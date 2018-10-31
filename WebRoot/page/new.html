@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
+<html>  
+  <head>  
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>测试</title>  
+    <script type="text/javascript" src="../js/jquery-1.9.0.js"></script>
+  </head>  
+    
+  <body>  
+   		<!-- 1，验证通过：改人员的信息 -->
+   		<br><br><br><br>
+   		<div align="center" style="display:none" id="showMessage">
+   			<h3>验证通过，该参会人员的信息如下（测试页面数据）</h3>
+   			用户名：<input type="text" id="userName"/>
+    		<br>
+    		号码：<input type="text" id="password"/>
+    			<br>
+    		邮箱：<input type="text" id="email"/>
+    			<br>
+    		邀请人:<input type="text" id="inviter"/>
+   		</div>
+   		<!-- 2，对不起，现在不是进入会场时间 -->
+   		<div align="center" style="display:none">
+   			<h3>对不起现在不是扫码时间，请您在在会场开始前三十分钟出示二维码扫码验证进入会场</h3>
+   		</div>
+   		<!-- 3,对不起，您的扫码次数超过规定次数，二维码失效 -->
+   		<div align="center" style="display:none" id="errorMessage">
+   			<h3>对不起您的扫码次数超过规定次数，二维码码失效（测试页面数据）</h3>
+   		</div>
+  </body>  
+</html>
+<script type="text/javascript">
+  		$(document).ready(function(){ 
+			//1,验证当前的时间是否为扫码规定的时间
+			 var today=new Date();
+        	 var valentime=new Date(today.getFullYear(),10,9);
+			if(today.getTime()==valentime.getTime()){
+        	//表示是当天的时间
+        	var hours=today.getHours();
+        	var minute=today.getMinutes();
+        	var time=hours+':'+minute;
+        	if(compare("15:30","21:30",time)){
+        		//表示可以
+        	}else{
+        		//表示不是扫码时间
+        		alert("当前不是扫码时间");
+        	}
+        }else{
+        	alert("当前不是扫码时间");
+        }
+			
+			
+			//2,获取当前的时间信息
+			var userName=getUrlParam('userName');
+			var phone=getUrlParam('phone');
+			var email=getUrlParam('email');
+			var inviter=getUrlParam('inviter');
+			var information={
+				exhName:userName,
+  				exhPhone:phone
+			}
+			$.ajax({
+  				type:'post',
+  				url: '/Test/user/identify.action',
+  				data:JSON.stringify(information),
+				contentType:'application/json;charset=utf-8',
+				dataType: "json",
+				success: function(data){
+					if(data.flag==0){
+						//表示二维码失效
+						$("#errorMessage").attr("style","display:block;");//显示div
+					}else if(data.flag==1){
+						$('#userName').val(userName);
+						$('#password').val(phone);
+					$('#email').val(email);
+						$('#inviter').val(inviter);
+					$("#showMessage").attr("style","display:block;");//显示div
+					}
+				}
+  			});
+		});
+		function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return decodeURIComponent(r[2]); return null; //返回参数值
+        }
+       
+        function compare(beginTime,endTime,nowTime){
+        	var strb = beginTime.split (":");
+  			if (strb.length != 2) {
+    			return false;
+  			}
+			  var stre = endTime.split (":");
+			  if (stre.length != 2) {
+			    return false;
+			  }
+			  var strn = nowTime.split (":");
+			  if (stre.length != 2) {
+			    return false;
+			  }
+			  var b = new Date ();
+			  var e = new Date ();
+			  var n = new Date ();
+			  b.setHours (strb[0]);
+			  b.setMinutes (strb[1]);
+			  e.setHours (stre[0]);
+			  e.setMinutes (stre[1]);
+			  n.setHours (strn[0]);
+			  n.setMinutes (strn[1]);
+			 
+			  if (n.getTime () - b.getTime () > 0 && n.getTime () - e.getTime () < 0) {
+			    return true;
+			  } else {
+	    		return false;
+	  		}
+        	
+        }
+</script>

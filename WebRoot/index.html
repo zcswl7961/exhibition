@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>paul smith会展邀请</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <script src="http://7xio74.com1.z0.glb.clouddn.com/jquery-2.1.4.min.js"></script>
+    <!-- Link Swiper's CSS -->
+    <script src="http://7xio74.com2.z0.glb.qiniucdn.com/rem.js"></script>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/animate.min.css">
+    <link rel="stylesheet" href='./js/video-js.css'/>
+    <script src='./js/video.min.js'></script>
+    <!-- Demo styles -->
+    <style>
+    html, body {
+        position: relative;
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 1rem;
+        color:#fff;
+        margin: 0;
+        padding: 0;
+        background-color:#f08bb5;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 1rem;
+        background: #f08bb5;
+        /*overflow-y: scroll;*/
+        /* Center slide text vertically */
+        /*display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;*/
+        /*display: flex;*/
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .slide2Title{
+      margin-top: 2rem;
+      margin-bottom: 0;
+    }
+    .slide2Content{
+      /*margin-top : 4rem;*/
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+    }
+    p{
+      margin: 0
+    }
+    input{
+      border: none;
+      height: 3rem;
+      width: 100%;
+     /*margin-top: 2rem;*/
+     padding-left: 1rem;
+     color: #f686ac;
+     font-size: 1.5rem;
+     box-sizing: border-box;
+     border-radius: 5px;
+    }
+    a{
+      display: block;
+      color:#f686ac;
+      background-color: #fff;
+      margin-top: 2rem;
+      line-height: 3rem;
+      font-size: 1rem;
+      border-radius: 5px;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+      color:#f686ac;
+      font-size: 1.5rem;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:#f686ac;
+        font-size: 1.5rem;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:#f686ac;
+        font-size: 1.5rem;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+      color:#f686ac;
+      font-size: 1.5rem;
+    }
+    .swiper-button-next{
+      background-image: url(./img/down.png);
+      top: 100%;
+      left: 50%;
+      margin-left: -13px;
+      margin-top: -44px;
+      background-size: 3rem 4rem;
+      animation: myfirst 1s;
+      -moz-animation: myfirst 1s;	/* Firefox */
+      -webkit-animation: myfirst 1s;	/* Safari 和 Chrome */
+      -o-animation: myfirst 1s;	/* Opera */
+      animation-iteration-count:infinite;
+      -webkit-animation-iteration-count:infinite; /* Safari 和 Chrome */
+    }
+    .template2{
+      position: fixed;
+      display: none;
+      background-color: #f08bb5;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      z-index: 1;
+      text-align: center;
+      overflow: scroll;
+    }
+    .template1{
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      z-index: 1;
+    }
+    .template1Content{
+      position: fixed;
+      display: block;
+      background-color: #fff;
+      width: 60%;
+      height: 18rem;
+      top: 30%;
+      left:20%;
+      border-radius: 10px;
+      z-index: 2;
+      text-align: center;
+    }
+    .template1Content p{
+      color:#db5586;
+      font-size: 2rem;
+    }
+    .signinAgain{
+      display: inline-block;
+      padding: 0 3rem;
+      background-color: #ed8bb4;
+      color: #fff;
+      line-height: 2.5rem;
+      border-radius: 5px;
+      margin-top: 0;
+    }
+    .template2 p{
+      font-size: 2rem;
+    }
+    .qrcode{
+      /*margin-top: 1rem;*/
+      width: 55%;
+    }
+    .swiper-slide1 img{
+      width: 10rem;
+      height: 26rem;
+    }
+    .firstAniDiv{
+      /*background-color: black;*/
+      height: 20rem;
+      width: 10rem;
+      margin-left: 3rem;
+      margin-top: 9rem;
+      position: absolute;
+    }
+    .firstAni{
+      position: absolute;
+      /*display: none;*/
+    }
+    .slide1Font1{
+      position: absolute;
+      width: 100%;
+      top: 18rem;
+      box-sizing: border-box;
+      padding: 0 4rem;
+      z-index: 1;
+    }
+    .slide1Font2{
+      position: absolute;
+    }
+    .slide1Font2 img{
+      position: absolute;
+    }
+    .slideMessageImg{
+      position: absolute;
+      top: 10rem;
+      left: -9rem;
+      opacity: 0.5;
+      width: 70%;
+      z-index: -1;
+    }
+    .slideMessageImg2{
+      position: absolute;
+      top: 25rem;
+      left: 1rem;
+       opacity: 0.7;
+      width: 38%;
+      z-index: -1;
+    }
+    .logoDiv{
+      margin-top: 1.5rem;
+      padding: 0 7rem;
+      text-align: left;
+    }
+    .logoDiv img{
+      width: 5rem;
+      margin-top: -1.5rem;
+    }
+    .logoDiv2{
+      margin-top: 0.5rem;
+      /*padding: 0 7rem;*/
+      text-align: left;
+      display: inline-block;
+    }
+    .logoDiv2 img{
+      width: 4.5rem;
+      /*margin-top: -0.5rem;*/
+    }
+    .video{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top:0;
+      left: 0;
+      z-index: 1;
+        background-color:#f08bb5;
+    }
+    .vjs-poster{
+      background-size: cover;
+    }
+    @keyframes myfirst
+{
+0% {opacity: 1;}
+50%{opacity: 0;}
+100% {opacity: 1;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+  0% {opacity: 1;}
+  50%{opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+  0% {opacity: 1;}
+  50%{opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+  0% {opacity: 1;}
+  50%{opacity: 0;}
+  100% {opacity: 1;}
+}
+    </style>
+</head>
+<body>
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <!-- <video src='http://oww5jrsjw.bkt.clouddn.com/videoSimple' style="width:100%;height:100%;" autoplay preload="auto"></video> -->
+          <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+   controls preload="auto" style="width:100%;height:100%;cccccccccccccc"
+   poster="./img/videobg.jpg"
+   data-setup='{"example_option":true}'>
+    <source src="http://oww5jrsjw.bkt.clouddn.com/newVideo.mp4" type='video/mp4' />
+ </video>
+
+        </div>
+          <!-- 首页滑块 -->
+          <div class="swiper-slide">
+            <img src='' style="width:100%;height:100%;" class="invite"/>
+          </div>
+
+            <!-- 邀请信息滑块 -->
+            <div class="swiper-slide slideMessage" style="z-index:-2;">
+              <img src='./img/inviteMessage.jpg' class="ani" style="width:100%;height:100%;"  data-slide-in="at 0 from flip use swing during 1000"/>
+            </div>
+
+            <!-- 提交信息滑块 -->
+            <div class="swiper-slide submitSlide" style="background-image:url(./img/inputBackground.png);background-repeat:no-repeat;background-size:cover;">
+            <div style="padding:0 4rem; text-align:left;margin-top:5rem;">
+              <div style="margin-top:1rem;">
+                <div style="position:absolute;margin-left:0.4rem;">
+                  <p style="color:#ee8bb3;font-size: 1.3rem;">姓 名:</p>
+                  <p style="color:#ee8bb3; margin-top:-0.3rem;">Name</p>
+                </div>
+            <input type="text" name="" value="" style="margin-top:3 rem;padding-left:5rem;" class="exhName"/>
+          </div>
+            <div style="margin-top:1.5rem;">
+              <div style="position:absolute;margin-left:0.4rem;">
+                <p style="color:#ee8bb3;font-size: 1.3rem;">电 话:</p>
+                <p style="color:#ee8bb3;margin-top:-0.3rem;">Phone</p>
+              </div>
+            <input type="text" name="" value="" style="padding-left:5rem;" class="exhPhone">
+          </div>
+            <div style="margin-top:1.5rem;">
+              <div style="position:absolute;margin-left:0.4rem;">
+                <p style="color:#ee8bb3;font-size: 1.3rem;">邮 箱:</p>
+                <p style="color:#ee8bb3;margin-top:-0.3rem;">Email</p>
+              </div>
+            <input type="text" name="" value="" style="padding-left:5rem;" class="exhEmail">
+          </div>
+            <div style="margin-top:1.5rem;">
+              <div style="position:absolute;margin-left:0.4rem;">
+                <p style="color:#ee8bb3;font-size: 1.3rem;">邀请人:</p>
+                <p style="color:#ee8bb3;margin-top:-0.3rem;">Inviter</p>
+              </div>
+            <input type="text" name="" value="" style="padding-left:5rem;" class="exhInviter">
+          </div>
+            <!-- <p style="margin-top:3rem;">一人一码 务必提供真实信息</p>
+            <p>便于后台识别</p> -->
+            <a class="submit" style="font-size:1.5rem;margin-top:8rem;text-align:center;padding: 0.4rem 0;">
+              <p style="line-height:2rem;font-size:1.3rem;">提 交</p>
+              <p style="font-size:0.8rem;line-height:0.8rem;">submit</p>
+            </a>
+          </div>
+            </div>
+
+        </div>
+        <!-- Add Pagination -->
+        <!-- <div class="swiper-pagination"></div> -->
+         <footer class="swiper-button-next"></footer>
+    </div>
+    <div class="template1">
+      <div style="background-color:#000;position:absolute;width:100%;height:100%;opacity:0.5;"></div>
+      <div class="template1Content">
+      <p style="margin-top:1.1rem;">抱歉!</p>
+      <p style="font-size:1.9rem;">预约失败</p>
+      <p style="font-size:0.8rem;">Sorry!registration failed.</p>
+      <img src='./img/dog.png' style="width:6rem;"/>
+      <div class='signinAgain'style="padding:0.4rem 3rem;padding-top:0.6rem;">
+        <p style="color:white;font-size:1rem; line-height:1rem;">重新登记</p>
+        <p style="color:white; font-size:0.4rem;line-height:1rem;">register again</p>
+      </div>
+    </div>
+    </div>
+    <div class="template2">
+     <p>恭喜你!</p>
+     <p style="font-size:0.9rem;">Congragulations!</p>
+     <p>预约成功</p>
+     <p style="font-size:0.7rem;">Submit successfully</p>
+     <img src='' class="qrcode"/>
+     <img src='./img/auccessInvite.png' style="width:100%;">
+    </div>
+    <!-- Swiper JS -->
+    <script src="./js/swiper.jquery.min.js"></script>
+     <script src="./js/swiper.animate-twice.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+    // myPlayer.enterFullScreen();
+    //初始化创建动画
+    // $('.invite').attr('src','./img/invite.gif?'+(new Date)+"");
+    var mySwiper = new Swiper ('.swiper-container', {
+      // effect : 'coverflow',
+      direction : 'vertical',
+      nextButton:'.swiper-button-next',
+      lazyLoadingOnTransitionStart : true,
+   onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
+     swiperAnimateCache(swiper); //隐藏动画元素
+     swiperAnimate(swiper); //初始化完成开始动画
+   },
+   onSlideChangeEnd: function(swiper){
+     swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
+     if(swiper.activeIndex=='1'){
+       // console.log('是');
+       $('.invite').attr('src','http://oww5jrsjw.bkt.clouddn.com/invite1.gif?'+(new Date)+"");
+     }else{
+       // console.log('不是');
+         $('.invite').attr('src','');
+     }
+   }
+ });
+    $('.submit').click(function(event) {
+      /* Act on the event */
+      //ajax请求
+      if($('.exhName').val()==''){
+        alert('姓名不能为空');
+      }else if($('.exhPhone').val()==''){
+        alert('电话不能为空');
+      }
+      else{
+      var data={
+        exhName:$('.exhName').val(),
+        exhPhone:$('.exhPhone').val(),
+        exhEmail:$('.exhEmail').val(),
+        exhInviter:$('.exhInviter').val()
+      }
+      $.ajax({
+        url: 'user/login.action',
+        type:'post',
+        dataType: 'json',
+        contentType:'application/json;charset=utf-8',
+        dataType:'json',
+        data:JSON.stringify(data),
+        success:function(resp){
+          if(resp.flag=='0'){
+            $('.template1').css('display', 'block');
+          }else{
+            $('.qrcode').attr('src',resp.qrcodeUrl);
+            $('.template2').css('display', 'block');
+          }
+        }
+      });
+    }
+    });
+    $('.signinAgain').click(function(event) {
+      /* Act on the event */
+      $('.template1').css('display', 'none');
+      $('.exhName').val('');
+      $('.exhPhone').val('');
+      $('.exhEmail').val('');
+      $('.exhInviter').val('');
+    });
+    $('input').blur(function(event) {
+      /* Act on the event */
+      $('.submitSlide').scrollTop('0px');
+    });
+    </script>
+</body>
+</html>

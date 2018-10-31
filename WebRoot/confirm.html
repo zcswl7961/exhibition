@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>paul smith会展确认页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <script src="http://7xio74.com1.z0.glb.clouddn.com/jquery-2.1.4.min.js"></script>
+    <!-- Link Swiper's CSS -->
+    <script src="http://7xio74.com2.z0.glb.qiniucdn.com/rem.js"></script>
+    <style>
+    html,body{
+      position: relative;
+      height: 100%;
+    }
+    body{
+      background-image: url(./img/inviteBg.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      color:white;
+      padding: 0;
+      margin: 0;
+    }
+    p{
+      margin: 0;
+    }
+    .a1{
+      color: white;
+      text-align: center;
+      margin-top: 4rem;
+    }
+    .contentLeft{
+     display: inline-block;
+     width: 40%;
+     height: 4rem;
+     float: left;
+
+    }
+    .contentRight{
+      display: inline-block;
+      width: 60%;
+      height: 4rem;
+      float: left;
+
+    }
+    .template1{
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      z-index: 1;
+    }
+    .content{
+      margin: 0 auto;
+      width: 85%;
+      /*background-color: black;*/
+      height: 4rem;
+      box-sizing: border-box;
+      padding-left: 10%;
+      margin-top: 1rem;
+    }
+    .template1Content{
+      position: fixed;
+      display: block;
+      background-color: #fff;
+      width: 80%;
+      height: 30%;
+      top: 30%;
+      left:10%;
+      border-radius: 10px;
+      z-index: 2;
+      text-align: center;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="a1">
+      <p style="font-size:3rem;font-weight:bold;">签到成功</p>
+      <p>register successfully</p>
+    </div>
+    <div class="content" style="margin-top:4rem;">
+      <div class="contentLeft">
+        <p style="font-size:2rem;">姓 名:</p>
+        <p>name</p>
+      </div>
+      <div class="contentRight">
+      <p style="font-size:2rem;display:inline-block;text-align:center;" class="name"></p>
+    </div>
+    </div>
+    <div class="content">
+      <div class="contentLeft">
+        <p style="font-size:2rem;">电 话:</p>
+        <p>phone number</p>
+      </div>
+      <div class="contentRight">
+      <p style="font-size:1.2rem;display:inline-block;text-align:center;line-height:3rem;" class="phone"></p>
+    </div>
+    </div>
+    <div class="content">
+      <div class="contentLeft">
+        <p style="font-size:2rem;">邮 箱:</p>
+        <p>email</p>
+      </div>
+      <div class="contentRight">
+      <p style="font-size:1.2rem;line-height:3rem;display:inline-block;text-align:center;" class="email"></p>
+    </div>
+    </div>
+    <div class="content">
+      <div class="contentLeft">
+        <p style="font-size:2rem;">邀请人:</p>
+        <p>inviter</p>
+      </div>
+      <div class="contentRight">
+      <p style="font-size:2rem;display:inline-block;text-align:center;" class="inviter"></p>
+    </div>
+    </div>
+    <div class="template1">
+      <div style="background-color:#f686ac;position:absolute;width:100%;height:100%;"></div>
+      <div class='template1Content'>
+        <p class="title" style="color:#f686ac;font-size:1.5rem;margin-top:5rem;"></p>
+      </div>
+    </div>
+  </body>
+  <script>
+  var today=new Date();
+        	 var valentime=new Date(today.getFullYear(),10,9);
+			if(today.getTime()!=valentime.getTime()){
+        	//表示是当天的时间
+        	var hours=today.getHours();
+        	var minute=today.getMinutes();
+        	var time=hours+':'+minute;
+        	if(compare("00:34","23:59",time)){
+        	//表示可以
+            var userName=getUrlParam('userName');
+      			var phone=getUrlParam('phone');
+      			var email=getUrlParam('email');
+      			var inviter=getUrlParam('inviter');
+      			var information={
+      				exhName:userName,
+        				exhPhone:phone
+      			}
+            $.ajax({
+              url: '/Test/user/identify.action',
+              type: 'post',
+              data: JSON.stringify(information),
+              contentType:'application/json;charset=utf-8',
+         		 dataType: "json",
+              success:function(data){
+                if(data.flag=='0'){
+                  $('.template1').css('display', 'block');
+                  $('.title').text('二维码扫描超过规定次数');
+          					}else if(data.flag=='1'){
+          						$('.name').text(userName);
+          						$('.phone').text(phone);
+          					$('.email').text(email);
+          						$('.inviter').text(inviter);
+          					}
+              }
+            });
+        	}else{
+        	 $('.template1').css('display', 'block');
+           $('.title').text('当前非扫码时间');
+        	}
+        }else{
+          $('.template1').css('display', 'block');
+          $('.title').text('当前非扫码时间');
+        }
+
+        function compare(beginTime,endTime,nowTime){
+            	var strb = beginTime.split (":");
+      			if (strb.length != 2) {
+        			return false;
+      			}
+    			  var stre = endTime.split (":");
+    			  if (stre.length != 2) {
+    			    return false;
+    			  }
+    			  var strn = nowTime.split (":");
+    			  if (stre.length != 2) {
+    			    return false;
+    			  }
+    			  var b = new Date ();
+    			  var e = new Date ();
+    			  var n = new Date ();
+    			  b.setHours (strb[0]);
+    			  b.setMinutes (strb[1]);
+    			  e.setHours (stre[0]);
+    			  e.setMinutes (stre[1]);
+    			  n.setHours (strn[0]);
+    			  n.setMinutes (strn[1]);
+
+    			  if (n.getTime () - b.getTime () > 0 && n.getTime () - e.getTime () < 0) {
+    			    return true;
+    			  } else {
+    	    		return false;
+    	  		}
+          }
+
+  function getUrlParam(name) {
+           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+           var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+           if (r != null) return decodeURIComponent(r[2]); return null; //返回参数值
+       }
+
+
+
+
+
+  </script>
+</html>

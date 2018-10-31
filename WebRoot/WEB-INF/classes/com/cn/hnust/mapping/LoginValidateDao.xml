@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.LoginValidateDao" >
+  <select id="findAndValidateScan" resultType="com.cn.hnust.pojo.Information">
+  		select exh_id as exhId,
+  			   exh_name as exhName,
+  			   exh_phone as exhPhone,
+  			   exh_qrcode as exhQrcode,
+  			   exh_qrcode_scan as exhQrcodeScann,
+  			   exh_qrcode_isinter as exhQrcodeIsInter
+  		from baseinformation
+  		where LOWER(replace(exh_name,' ','')) like #{userName} and replace(exh_phone,' ','')=#{phone} limit 1 
+  </select>
+  <update id="update">
+  		update baseinformation set exh_qrcode=#{qrcode},exh_inviter=#{inviter} where LOWER(replace(exh_name,' ','')) like #{userName} and replace(exh_phone,' ','')=#{phone}
+  </update>
+  <update id="addScanAndInter">
+  		update baseinformation set exh_qrcode_scan=exh_qrcode_scan+1,exh_qrcode_isinter=1 where LOWER(replace(exh_name,' ','')) like #{userName} and replace(exh_phone,' ','')=#{phone}
+  </update>
+</mapper>
