@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,16 +44,11 @@ public class LoginValidateController {
 	 * 		{'flag':'','qrcodeUrl':'http://pl.wamwv.cn/Test/page/asdfasdf.png'};
 	 * 		flag:1,表示调用成功
 	 * 		qrcodeUrl:表示返回的二维码的数据信息
-	 * @param userName:用户名
-	 * @param phone：手机号码
-	 * @param email：邮箱信息
-	 * @param inviter：邀请人信息
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="/login.action",method=RequestMethod.POST)
-	public String login(@RequestBody Information information,HttpServletRequest request,
-	          HttpServletResponse response){
+	public String login(@RequestBody Information information){
 		System.out.println("接口调用到了该方法，获取到的信息为:"+information.getExhName()+"&"+information.getExhPhone());
 		WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
 		ServletContext servletContext = webApplicationContext.getServletContext();
@@ -77,17 +69,15 @@ public class LoginValidateController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/identify.action",method=RequestMethod.POST)
-	public String identify(@RequestBody Information information,HttpServletRequest request,
-	          HttpServletResponse response){
+	public String identify(@RequestBody Information information){
 		String identify = loginValidateSerice.identify(information);
 		return identify;
 	}
 	//传参案例设计
 	@ResponseBody
 	@RequestMapping(value="/set.action",method=RequestMethod.POST)
-	public Map<String,String> set(@RequestBody Information information, HttpServletRequest request,
-			          HttpServletResponse response){
-		Map<String,String> map=new HashMap<String,String>();
+	public Map<String,String> set(@RequestBody Information information){
+		Map<String,String> map=new HashMap<>();
 		map.put("a", "set");
 		map.put("2", "a");
 		return map;
