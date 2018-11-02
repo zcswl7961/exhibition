@@ -43,12 +43,15 @@ public class LoginValidateService {
 		String phone=information.getExhPhone();
 		String email=information.getExhEmail();
 		String inviter=information.getExhInviter();
+		/**
+		 * 当inviter为null时，默认设置空
+		 */
 		if(inviter==null){
 			inviter="";
 		}
 		String qrCodeUrlMessage=bathPath+"confirm.html?userName="+userName+"&phone="+phone+"&email="+email+"&inviter="+inviter;
-		userName=userName.replace(" ","").toLowerCase();
-		phone=phone.replace(" ", "");
+		userName=userName.replaceAll("\\s*", "").toLowerCase();
+		phone = phone.replaceAll("\\s*","");
 		String filePath="";
 		//将该md5的数据信息插入到指定的数据表中
 //		String userNameStr="%"+userName+"%";
@@ -84,8 +87,6 @@ public class LoginValidateService {
 	}
 	/**
 	 * 		验证用户信息，如果数据库字段中exh_qrcode_scan中的次数为2，表示该二维码数据失效
-	 * @param userName
-	 * @param phone
 	 * @return
 	 */
 	public String identify(Information _information){
