@@ -20,7 +20,6 @@ public class CreateQRCode {
 	 * 根据传递过来的用户名称和号码数据，加密形成对应的二维码数据信息
 	 * 			返回二维码的实际的服务的路径地址，提醒用户进行截图保存
 	 * 			传入的qRcodeUrl具体的数据中需要指定二维码中的具体的数据，并将指定的路径的信息显示出来，回调信息
-	 * @param UserName
 	 * @param phone:一人一码信息
 	 * @param sendPath
 	 * @return 返回的数据信息为二维码的实际的路径地址信息

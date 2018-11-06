@@ -42,7 +42,6 @@ public class QRCodeUtil {
 		hints.put(EncodeHintType.MARGIN, 1);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content,
 				BarcodeFormat.QR_CODE, QRCODE_SIZE, QRCODE_SIZE, hints);
-		//bitMatrix=deleteWhite(bitMatrix);
 		int width = bitMatrix.getWidth();
 		int height = bitMatrix.getHeight();
 		BufferedImage image = new BufferedImage(width, height,
@@ -141,8 +140,6 @@ public class QRCodeUtil {
 	 *            存放目录
 	 * @param needCompress
 	 *            是否压缩LOGO
-	 * @throws 
-	 * 	   	返回征程的文件的路径
 	 */
 	public static String encode(String content, String imgPath, String destPath,
 			boolean needCompress,String fileName) throws Exception {
